@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} GlamShop Home {% endblock %}
+{%block content%}
+
+{% if category %}
+<div>
+    <div>
+        <p class="text-center"><a href="{% url 'allproducts' %}">Our Products Category</a></p>
+    </div>
+</div>
+{% endif %}
+
+<div>
+    {% if category %}
+    <img src="{{category.image.url}}" alt="{{category.name}}" style="width:1200px; height:500px;">
+</div>
+<br>
+<div>
+    <h1>{{category.name}}</h1>
+    <p>{{category.description}}</p>
+</div>
+
+{% else %}
+<div>
+    <img src="{% static 'image/wall.jpg' %}" alt="Products Collection" width="1263px;" height="500px;">
+</div>
+
+  <br>
+  <div>
+    <h1>Explore Products</h1>
+    <p>
+      Welcome to GlamShop, your one-stop online destination for all things glamorous! We pride ourselves on curating a collection of high-quality fashion, beauty, and lifestyle products that are sure to elevate your style and make you feel like a true fashionista.
+      Let's take a look at some of the fabulous products we offer:
+      <br>
+      <br>
+    <h4>Product Categories :</h4>
+    </p>
+  </div>
+{% endif %}
+
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-9 col-sm-12 col-md-4 col-lg-4">
+            <div class="card text-center" style="width: 18rem;">
+            <a href="{{product.get_url}}"><img class="card-img-top" src="{{product.image.url}}" style="width:200px; height:200px;" alt="{{product.name}}"></a>
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">{{product.price}}</p>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
